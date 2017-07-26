@@ -53,6 +53,12 @@ async function command (context) {
     process.exit(exitCodes.PROJECT_NAME)
   }
 
+  // Guard against `ignite new app`
+  if (toLower(projectName) === 'app') {
+    print.error(`Hey... This is a protected word. Please name your project something other than '${projectName}'.`)
+    process.exit(exitCodes.PROJECT_NAME)
+  }
+  
   // verify the project name isn't kebab cased
   if (isKebabCase) {
     print.error(`Please use camel case for your project name. Ex: ${projectNameCamel}`)
